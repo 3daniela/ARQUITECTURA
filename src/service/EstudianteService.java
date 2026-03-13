@@ -1,49 +1,32 @@
 package service;
 
-import model.Estudiantes;
-import repository.CrudRepository;
+import model.Estudiante;
+import repository.EstudianteRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class EstudianteService implements CrudRepository<Estudiantes> {
+public class EstudianteService {
 
-    private List<Estudiantes> lista = new ArrayList<>();
+    private EstudianteRepository repository = new EstudianteRepository();
 
-    @Override
-    public void agregar(Estudiantes e) {
-        lista.add(e);
+    public void crearEstudiante(int id, String nombre, int edad) {
+        Estudiante estudiante = new Estudiante(id, nombre, edad);
+        repository.guardar(estudiante);
     }
 
-    @Override
-    public List<Estudiantes> listar() {
-        return lista;
+    public List<Estudiante> listarEstudiantes() {
+        return repository.listar();
     }
 
-    @Override
-    public Estudiantes
-    buscar(int id) {
-
-        for(Estudiantes e : lista){
-
-            if(e.getId() == id){
-                return e;
-            }
-
-        }
-
-        return null;
+    public Estudiante buscarEstudiante(int id) {
+        return repository.buscarPorId(id);
     }
 
-    @Override
-    public boolean eliminar(int id) {
+    public boolean eliminarEstudiante(int id) {
+        return repository.eliminar(id);
+    }
 
-        Estudiantes e = buscar(id);
-
-        if(e != null){
-            lista.remove(e);
-            return true;
-        }
+    public boolean actualizarEstudiante(int idAct, String nombreAct, int edadAct) {
 
         return false;
     }
